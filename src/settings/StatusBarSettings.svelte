@@ -97,7 +97,7 @@
 </script>
 
 <div>
-  <h4>Markdown Status Bar</h4>
+  <h6>Markdown Status Bar</h6>
   <p>Here you can customize what statistics are displayed on the status bar when editing a markdown note.</p>
   <div class="bwc-sb-buttons">
     <button
@@ -275,7 +275,7 @@
       </div>
     </details>
   {/each}
-  <h4>Alternative Status Bar</h4>
+  <h6>Alternative Status Bar</h6>
   <p>Here you can customize what statistics are displayed on the status bar when not editing a markdown file.</p>
   <div class="bwc-sb-buttons">
     <button

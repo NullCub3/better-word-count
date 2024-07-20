@@ -11,12 +11,10 @@ export default class BetterWordCountSettingsTab extends PluginSettingTab {
     let { containerEl } = this;
 
     containerEl.empty();
-    containerEl.createEl("h3", { text: "Better Word Count Settings" });
 
     // General Settings
-    containerEl.createEl("h4", { text: "General Settings" });
     new Setting(containerEl)
-      .setName("Collect Statistics")
+      .setName("Collect statistics")
       .setDesc(
         "Reload required for change to take effect. Turn on to start collecting daily statistics of your writing. Stored in the path specified below. This is required for counts of the day as well as total counts."
       )
@@ -28,7 +26,7 @@ export default class BetterWordCountSettingsTab extends PluginSettingTab {
         });
       });
     new Setting(containerEl)
-      .setName("Don't Count Comments")
+      .setName("Don't count comments")
       .setDesc("Turn on if you don't want markdown comments to be counted.")
       .addToggle((cb: ToggleComponent) => {
         cb.setValue(this.plugin.settings.countComments);
@@ -38,7 +36,7 @@ export default class BetterWordCountSettingsTab extends PluginSettingTab {
         });
       });
     new Setting(containerEl)
-      .setName("Display Section Word Count")
+      .setName("Display section word count")
       .setDesc("Turn on if you want to display section word counts next to headings.")
       .addToggle((cb: ToggleComponent) => {
         cb.setValue(this.plugin.settings.displaySectionCounts);
@@ -49,7 +47,7 @@ export default class BetterWordCountSettingsTab extends PluginSettingTab {
         });
       });
     new Setting(containerEl)
-      .setName("Page Word Count")
+      .setName("Page word count")
       .setDesc("Set how many words count as one \"page\"")
       .addText((text: TextComponent) => {
         text.inputEl.type = "number";
@@ -67,9 +65,9 @@ export default class BetterWordCountSettingsTab extends PluginSettingTab {
       });
 
     // Advanced Settings
-    containerEl.createEl("h4", { text: "Advanced Settings" });
+    new Setting(containerEl).setName('Advanced').setHeading();
     new Setting(containerEl)
-      .setName("Vault Stats File Path")
+      .setName("Vault stats file path")
       .setDesc("Reload required for change to take effect. The location of the vault statistics file, relative to the vault root.")
       .addText((text: TextComponent) => {
         text
