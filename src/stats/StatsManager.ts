@@ -211,7 +211,7 @@ export default class StatsManager {
       this.vaultStats.history[this.today].footnotes = footnotes;
       this.vaultStats.history[this.today].citations = citations;
       this.vaultStats.history[this.today].pages = pages;
-      this.vaultStats.history[this.today].files = this.getTotalFiles();
+      this.vaultStats.history[this.today].files = this.getTotalFileCount();
 
       await this.update();
     } else {
@@ -314,30 +314,47 @@ export default class StatsManager {
     return citations;
   }
 
-  public getDailyWords(): number {
-    return this.vaultStats.history[this.today].words;
+  // Removes floating point errors and adds thousands separators to a number.
+  private formatNumber(number: number): string {
+    if (typeof Intl !== 'undefined' && typeof Intl.NumberFormat === 'function') {
+      // Use the user's local settings if available
+      return Math.round(number).toLocaleString();
+    } else {
+      // Default to 'en-US' otherwise
+      return Math.round(number).toLocaleString('en-US');
+    }
   }
 
-  public getDailyCharacters(): number {
-    return this.vaultStats.history[this.today].characters;
+
+  public getDailyWords(): string {
+    return this.formatNumber(this.vaultStats.history[this.today].words);
   }
 
-  public getDailySentences(): number {
-    return this.vaultStats.history[this.today].sentences;
+  public getDailyCharacters(): string {
+    return this.formatNumber(this.vaultStats.history[this.today].characters);
   }
 
-  public getDailyFootnotes(): number {
-    return this.vaultStats.history[this.today].footnotes;
+  public getDailySentences(): string {
+    return this.formatNumber(this.vaultStats.history[this.today].sentences);
   }
 
-  public getDailyCitations(): number {
-    return this.vaultStats.history[this.today].citations;
-  }
-  public getDailyPages(): number {
-    return this.vaultStats.history[this.today].pages;
+
+  public getDailyFootnotes(): string {
+    return this.formatNumber(this.vaultStats.history[this.today].footnotes);
   }
 
-  public getTotalFiles(): number {
+  public getDailyCitations(): string {
+    return this.formatNumber(this.vaultStats.history[this.today].citations);
+  }
+  public getDailyPages(): string {
+    return this.formatNumber(this.vaultStats.history[this.today].pages);
+  }
+
+  public getTotalFiles(): string {
+    return this.formatNumber(this.vault.getMarkdownFiles().length);
+  }
+
+  public getTotalFileCount(): number {
     return this.vault.getMarkdownFiles().length;
   }
 
@@ -366,8 +383,8 @@ export default class StatsManager {
     return this.vaultStats.history[this.today].totalCitations;
   }
 
-  public async getTotalPages(): Promise<number> {
-    if (!this.vaultStats) return await this.calcTotalPages();
-    return this.vaultStats.history[this.today].totalPages;
+  public async getTotalPages(): Promise<string> {
+    if (!this.vaultStats) return this.formatNumber(await this.calcTotalPages());
+    return this.formatNumber(this.vaultStats.history[this.today].totalPages);
   }
 }

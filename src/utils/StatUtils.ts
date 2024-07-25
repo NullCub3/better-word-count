@@ -20,7 +20,8 @@ export function getWordCount(text: string): number {
     ].join("|"),
     "g"
   );
-  return (text.match(pattern) || []).length;
+  const result = (text.match(pattern) || []).length;
+  return result;
 }
 
 export function getCharacterCount(text: string): number {
@@ -50,7 +51,6 @@ export function getSentenceCount(text: string): number {
       /[^.!?\s][^.!?]*(?:[.!?](?!['"]?\s|$)[^.!?]*)*[.!?]?['"]?(?=\s|$)/gm
     ) || []
   ).length;
-
   return sentences;
 }
 
@@ -59,7 +59,8 @@ export function getPageCount(text: string, pageWords: number): number {
 }
 
 export function getTotalFileCount(vault: Vault): number {
-  return vault.getMarkdownFiles().length;
+  const fileCount = vault.getMarkdownFiles().length;
+  return fileCount;
 }
 
 export function cleanComments(text: string): string {
